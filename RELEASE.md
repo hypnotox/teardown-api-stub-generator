@@ -1,7 +1,9 @@
 # Teardown Lua API v0.9.0 Stubs
 
-Every release is a build of the current version at that date.
-
+## Changes
+[//]: # (Add before release)
+ 
+## Usage
 - Download the file you need, then copy it into your mod folder.
     - Lua
         - The IDE should pick up the functions by themselves.
