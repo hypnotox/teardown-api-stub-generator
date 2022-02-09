@@ -27,9 +27,7 @@ You have to have [Go](https://go.dev/) installed and in your PATH.
 
 Download the source 
 
-## IDE Extensions
-
-Useful extensions for IDEs.
+## Useful IDE Extensions
 
 ### Lua
 These extensions are useful to extend type inference for Lua.
