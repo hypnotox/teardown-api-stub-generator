@@ -6,6 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - uses: actions/checkout@v2
 
     - name: Set up Go
@@ -25,9 +28,9 @@ jobs:
       with:
         draft: false
         prerelease: false
-        release_name: v0.9.0
+        release_name: v0.9.0-${{ steps.date.outputs.date }}
         tag_name: ${{ github.ref }}
-        body_path: CHANGELOG.md
+        body_path: RELEASE.md
       env:
         GITHUB_TOKEN: ${{ github.token }}
         
