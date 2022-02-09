@@ -37,8 +37,11 @@ func main() {
 		return
 	}
 
-	writeStubFile(src.NewLuaWriter(), api, "teardown.d.lua")
-	writeStubFile(src.NewTealWriter(), api, "teardown.d.tl")
+	luaApi := api
+	tealApi := api
+
+	writeStubFile(src.NewLuaWriter(), luaApi, "teardown.d.lua")
+	writeStubFile(src.NewTealWriter(), tealApi, "teardown.d.tl")
 }
 
 func writeStubFile(writer src.Writer, api src.Api, fileName string) {
