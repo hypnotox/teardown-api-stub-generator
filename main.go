@@ -37,37 +37,39 @@ func main() {
 		return
 	}
 
-	// Convert api object to Lua stub file string
-	luaWriter := src.NewLuaWriter()
-	apiStub, luaWriterError := luaWriter.Write(api)
+	writeStubFile(src.NewLuaWriter(), api, "teardown.d.lua")
+	writeStubFile(src.NewTealWriter(), api, "teardown.d.tl")
+}
 
-	if luaWriterError != nil {
-		fmt.Println("luaWriterError: " + luaWriterError.Error())
+func writeStubFile(writer src.Writer, api src.Api, fileName string) {
+	apiStub, writerError := writer.Write(api)
+
+	if writerError != nil {
+		fmt.Println("writerError: " + writerError.Error())
 		return
 	}
 
 	fmt.Println("Successfully generated api stub")
-	_ = os.Remove("stub.lua")
-	stubFile, fileOpenError := os.Create("stub.lua")
+	_ = os.Remove(fileName)
+	stubFile, fileOpenError := os.Create(fileName)
 
 	if fileOpenError != nil {
 		fmt.Println("fileOpenError: " + fileOpenError.Error())
 		return
 	}
 
-	fmt.Println("Successfully opened stub.lua")
+	fmt.Println("Successfully opened " + fileName)
 	_, stubWriteError := stubFile.Write([]byte(apiStub))
 	if stubWriteError != nil {
 		fmt.Println(stubWriteError)
 		return
 	}
 
-	// defer the closing of our stubFile so that we can parse it later on
-	fileCloseError = stubFile.Close()
+	fileCloseError := stubFile.Close()
 
 	if fileCloseError != nil {
 		fmt.Println(fileCloseError)
 	}
 
-	fmt.Println("Successfully written stub.lua")
+	fmt.Println("Successfully written " + fileName)
 }

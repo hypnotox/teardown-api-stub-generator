@@ -6,24 +6,27 @@ import (
 )
 
 type LuaWriter struct {
-	keywords                map[string]bool
-	overrideVariableType    map[string]string
-	overrideTableTypeByName map[string]string
+	overrideVariableType map[string]string
+	vectorTypeName       string
+	quaternionTypeName   string
+	transformTypeName    string
 }
 
 func NewLuaWriter() *LuaWriter {
+	vectorTypeName := "VectorType"
+	quaternionTypeName := "QuaternionType"
+	transformTypeName := "TransformType"
+
 	return &LuaWriter{
-		keywords: map[string]bool{
-			"end":      true,
-			"return":   true,
-			"function": true,
-		},
 		overrideVariableType: map[string]string{
-			"int":     "number",
-			"float":   "number",
-			"value":   "number",
-			"varying": "any",
+			"number<integer>": "number",
+			"Vector":          vectorTypeName,
+			"Quaternion":      quaternionTypeName,
+			"Transform":       transformTypeName,
 		},
+		vectorTypeName:     vectorTypeName,
+		quaternionTypeName: quaternionTypeName,
+		transformTypeName:  transformTypeName,
 	}
 }
 
@@ -50,11 +53,6 @@ func (luaWriter LuaWriter) prepareData(api *Api) {
 
 		for i := 0; i < len(function.Inputs); i++ {
 			input := function.Inputs[i]
-
-			if luaWriter.keywords[input.Name] {
-				input.Name += "Value"
-			}
-
 			replacement := luaWriter.overrideVariableType[input.Type]
 
 			if replacement != "" {
@@ -64,11 +62,6 @@ func (luaWriter LuaWriter) prepareData(api *Api) {
 
 		for i := 0; i < len(function.Outputs); i++ {
 			output := function.Outputs[i]
-
-			if luaWriter.keywords[output.Name] {
-				output.Name += "Value"
-			}
-
 			replacement := luaWriter.overrideVariableType[output.Type]
 
 			if replacement != "" {
@@ -138,15 +131,35 @@ func (luaWriter LuaWriter) getOutputStub(outputs []*Output) string {
 }
 
 func (luaWriter LuaWriter) getStubHeader() string {
-	return `
+	return fmt.Sprintf(`
 --[[
 Teardown uses Lua version 5.1 as scripting language.
-The Lua 5.1 reference manual can be found here. @https://www.lua.org/manual/5.1/
+The API can be found here: https://www.teardowngame.com/modding/api.html
+The Lua 5.1 reference manual can be found here: https://www.lua.org/manual/5.1/
 
-Created with HypnoTox's Teardown API Stub Generator, available at https://github.com/hypnotox/teardown-api-stub-generator
+Created with HypnoTox's Teardown API Stub Generator, available at: https://github.com/hypnotox/teardown-api-stub-generator
 ]]
+
+--[[ Classes ]]
+
+---@class %s:table
+---@see @https://www.teardowngame.com/modding/api.html#Vec
+local defaultVector = {0, 0, 0}
+
+---@class %s:table
+---@see @https://www.teardowngame.com/modding/api.html#Quat
+local defaultQuaternion = {0, 0, 0, 0}
+
+---@class %s:table
+---@field pos %[1]s Vector representing transform position
+---@field rot %[2]s Quaternion representing transform rotation
+---@see @https://www.teardowngame.com/modding/api.html#Transform
+local defaultTransform = {
+    pos = Vec(),
+    rot = Quat(),
+}
 
 --[[ Functions ]]
 
-`
+`, luaWriter.vectorTypeName, luaWriter.quaternionTypeName, luaWriter.transformTypeName)
 }
