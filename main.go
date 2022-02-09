@@ -49,7 +49,6 @@ func writeStubFile(writer src.Writer, api src.Api, fileName string) {
 		return
 	}
 
-	fmt.Println("Successfully generated api stub")
 	_ = os.Remove(fileName)
 	stubFile, fileOpenError := os.Create(fileName)
 
@@ -58,7 +57,6 @@ func writeStubFile(writer src.Writer, api src.Api, fileName string) {
 		return
 	}
 
-	fmt.Println("Successfully opened " + fileName)
 	_, stubWriteError := stubFile.Write([]byte(apiStub))
 	if stubWriteError != nil {
 		fmt.Println(stubWriteError)
@@ -71,5 +69,5 @@ func writeStubFile(writer src.Writer, api src.Api, fileName string) {
 		fmt.Println(fileCloseError)
 	}
 
-	fmt.Println("Successfully written " + fileName)
+	fmt.Println("Successfully wrote " + fileName)
 }
