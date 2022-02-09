@@ -36,7 +36,6 @@ func (luaWriter LuaWriter) Write(api Api) (string, error) {
 		return "", errors.New("API is empty")
 	}
 
-	luaWriter.prepareData(&api)
 	stub := luaWriter.getStubHeader()
 
 	// we iterate through every function within our api
@@ -46,30 +45,6 @@ func (luaWriter LuaWriter) Write(api Api) (string, error) {
 	}
 
 	return stub, nil
-}
-
-func (luaWriter LuaWriter) prepareData(api *Api) {
-	for i := 0; i < len(api.Functions); i++ {
-		function := api.Functions[i]
-
-		for i := 0; i < len(function.Inputs); i++ {
-			input := function.Inputs[i]
-			replacement := luaWriter.overrideVariableType[input.Type]
-
-			if replacement != "" {
-				input.Type = replacement
-			}
-		}
-
-		for i := 0; i < len(function.Outputs); i++ {
-			output := function.Outputs[i]
-			replacement := luaWriter.overrideVariableType[output.Type]
-
-			if replacement != "" {
-				output.Type = replacement
-			}
-		}
-	}
 }
 
 func (luaWriter LuaWriter) getFunctionStub(function Function) string {
@@ -92,11 +67,16 @@ func (luaWriter LuaWriter) getFunctionStub(function Function) string {
 	return functionStub
 }
 
-func (luaWriter LuaWriter) getInputStub(inputs []*Input) string {
+func (luaWriter LuaWriter) getInputStub(inputs []Input) string {
 	var inputStub string
 
 	for i := 0; i < len(inputs); i++ {
 		input := inputs[i]
+		replacement := luaWriter.overrideVariableType[input.Type]
+
+		if replacement != "" {
+			input.Type = replacement
+		}
 
 		if input.Optional {
 			inputStub += fmt.Sprintf("---@param %s %s %s %s\n", input.Name, input.Type, "_optional_", input.Description)
@@ -108,7 +88,7 @@ func (luaWriter LuaWriter) getInputStub(inputs []*Input) string {
 	return inputStub
 }
 
-func (luaWriter LuaWriter) getOutputStub(outputs []*Output) string {
+func (luaWriter LuaWriter) getOutputStub(outputs []Output) string {
 	if len(outputs) == 0 {
 		return ""
 	}
@@ -118,6 +98,11 @@ func (luaWriter LuaWriter) getOutputStub(outputs []*Output) string {
 
 	for i := 0; i < len(outputs); i++ {
 		output := outputs[i]
+		replacement := luaWriter.overrideVariableType[output.Type]
+
+		if replacement != "" {
+			output.Type = replacement
+		}
 
 		returnTypes += output.Type
 		returnDescriptions += fmt.Sprintf("%s: %s", output.Name, output.Description)
