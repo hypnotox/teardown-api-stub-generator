@@ -35,7 +35,6 @@ func (tealWriter TealWriter) Write(api Api) (string, error) {
 		return "", errors.New("API is empty")
 	}
 
-	tealWriter.prepareData(&api)
 	stub := tealWriter.getStubHeader()
 
 	// we iterate through every function within our api
@@ -45,30 +44,6 @@ func (tealWriter TealWriter) Write(api Api) (string, error) {
 	}
 
 	return stub, nil
-}
-
-func (tealWriter TealWriter) prepareData(api *Api) {
-	for i := 0; i < len(api.Functions); i++ {
-		function := api.Functions[i]
-
-		for i := 0; i < len(function.Inputs); i++ {
-			input := function.Inputs[i]
-			replacement := tealWriter.overrideVariableType[input.Type]
-
-			if replacement != "" {
-				input.Type = replacement
-			}
-		}
-
-		for i := 0; i < len(function.Outputs); i++ {
-			output := function.Outputs[i]
-			replacement := tealWriter.overrideVariableType[output.Type]
-
-			if replacement != "" {
-				output.Type = replacement
-			}
-		}
-	}
 }
 
 func (tealWriter TealWriter) getFunctionStub(function Function) string {
@@ -86,11 +61,18 @@ func (tealWriter TealWriter) getFunctionStub(function Function) string {
 	}
 
 	for i := 0; i < len(function.Inputs); i++ {
+		input := function.Inputs[i]
+		replacement := tealWriter.overrideVariableType[input.Type]
+
+		if replacement != "" {
+			input.Type = replacement
+		}
+
 		argument := ""
 
-		argument += function.Inputs[i].Name
+		argument += input.Name
 		argument += ": "
-		argument += function.Inputs[i].Type
+		argument += input.Type
 
 		if i < (len(function.Inputs) - 1) {
 			argument += ", "
@@ -100,13 +82,20 @@ func (tealWriter TealWriter) getFunctionStub(function Function) string {
 	}
 
 	for i := 0; i < len(function.Outputs); i++ {
-		output := function.Outputs[i].Type
+		output := function.Outputs[i]
+		replacement := tealWriter.overrideVariableType[output.Type]
 
-		if i < (len(function.Outputs) - 1) {
-			output += ", "
+		if replacement != "" {
+			output.Type = replacement
 		}
 
-		returnTypes += output
+		outputType := output.Type
+
+		if i < (len(function.Outputs) - 1) {
+			outputType += ", "
+		}
+
+		returnTypes += outputType
 	}
 
 	functionStub += fmt.Sprintf("---@see @https://www.teardowngame.com/modding/api.html#%s\n", function.Name)

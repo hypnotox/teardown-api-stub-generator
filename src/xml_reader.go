@@ -28,10 +28,10 @@ type Api struct {
 }
 
 type Function struct {
-	XMLName xml.Name  `xml:"function"`
-	Name    string    `xml:"name,attr"`
-	Inputs  []*Input  `xml:"input"`
-	Outputs []*Output `xml:"output"`
+	XMLName xml.Name `xml:"function"`
+	Name    string   `xml:"name,attr"`
+	Inputs  []Input  `xml:"input"`
+	Outputs []Output `xml:"output"`
 }
 
 type Input struct {
