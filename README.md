@@ -25,12 +25,12 @@ The parser currently generates a stub file for [Lua](https://www.lua.org/) and [
 
 You have to have [Go](https://go.dev/) installed and in your PATH.
 
-Download the source 
+Download the source and run `go run` in the directory do build the stubs from the current `api.xml` file.
 
 ## Useful IDE Extensions
 
 ### Lua
-These extensions are useful to extend type inference for Lua.
+These extensions extend type inference for Lua.
 - Visual Studio Code: https://marketplace.visualstudio.com/items?itemName=sumneko.lua
 - JetBrains IDEs: https://plugins.jetbrains.com/plugin/9768-emmylua
 
