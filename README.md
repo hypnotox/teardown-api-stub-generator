@@ -25,7 +25,7 @@ The parser currently generates a stub file for [Lua](https://www.lua.org/) and [
 
 You have to have [Go](https://go.dev/) installed and in your PATH.
 
-Download the source and run `go run` in the directory do build the stubs from the current `api.xml` file.
+Download the source and run `go run` in the directory to build the stubs from the current `api.xml` file.
 
 ## Useful IDE Extensions
 
