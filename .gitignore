@@ -1,2 +1,2 @@
-api.xml
-stub.lua
+*.d.lua
+*.d.tl
