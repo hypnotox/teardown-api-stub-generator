@@ -20,6 +20,7 @@ func NewLuaWriter() *LuaWriter {
 	return &LuaWriter{
 		overrideVariableType: map[string]string{
 			"number<integer>": "number",
+			"table<number>":   "table",
 			"Vector":          vectorTypeName,
 			"Quaternion":      quaternionTypeName,
 			"Transform":       transformTypeName,
