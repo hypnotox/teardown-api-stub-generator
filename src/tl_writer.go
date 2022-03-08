@@ -21,6 +21,7 @@ func NewTealWriter() *TealWriter {
 		overrideVariableType: map[string]string{
 			"number<integer>": "integer",
 			"table<number>":   "{number}",
+			"table<string>":   "{string}",
 			"Vector":          vectorTypeName,
 			"Quaternion":      quaternionTypeName,
 			"Transform":       transformTypeName,

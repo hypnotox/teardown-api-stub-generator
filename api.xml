@@ -79,7 +79,7 @@
 	</function>
 	<function name="ListKeys">
 		<input name="parent" type="string" optional="false" desc="The parent registry key"/>
-		<output name="children" type="table&lt;number&gt;" desc="Indexed table of strings with child keys"/>
+		<output name="children" type="table&lt;string&gt;" desc="Indexed table of strings with child keys"/>
 	</function>
 	<function name="HasKey">
 		<input name="key" type="string" optional="false" desc="Registry key"/>
@@ -288,6 +288,10 @@
 		<input name="handle" type="number" optional="false" desc="Entity handle"/>
 		<output name="exists" type="boolean" desc="Returns true if the entity pointed to by handle still exists"/>
 	</function>
+	<function name="GetEntityType">
+		<input name="handle" type="number" optional="false" desc="Entity handle"/>
+		<output name="type" type="string" desc="Type name of the provided entity"/>
+	</function>
 	<function name="FindBody">
 		<input name="tag" type="string" optional="false" desc="Tag name"/>
 		<input name="global" type="boolean" optional="true" desc="Search in entire scene"/>
@@ -435,6 +439,9 @@
 		<input name="maxAngVel" type="number" optional="true" desc="Maximum relative angular velocity (default: infinite)"/>
 		<input name="maxAngImpulse" type="number" optional="true" desc="Maximum angular impulse (default: infinite)"/>
 	</function>
+	<function name="GetWorldBody">
+		<output name="body" type="number" desc="Handle to the static world body"/>
+	</function>
 	<function name="FindShape">
 		<input name="tag" type="string" optional="false" desc="Tag name"/>
 		<input name="global" type="boolean" optional="true" desc="Search in entire scene"/>
@@ -541,6 +548,11 @@
 		<output name="hit" type="boolean" desc="True if a point was found"/>
 		<output name="point" type="Vector" desc="World space closest point"/>
 		<output name="normal" type="Vector" desc="World space normal at closest point"/>
+	</function>
+	<function name="IsShapeTouching">
+		<input name="a" type="number" optional="false" desc="Handle to first shape"/>
+		<input name="b" type="number" optional="false" desc="Handle to second shape"/>
+		<output name="touching" type="boolean" desc="True is shapes a and b are touching each other"/>
 	</function>
 	<function name="FindLocation">
 		<input name="tag" type="string" optional="false" desc="Tag name"/>
@@ -1040,10 +1052,25 @@
 		<input name="velocity" type="Vector" optional="false" desc="World space velocity as vector"/>
 		<input name="lifetime" type="number" optional="false" desc="Particle lifetime in seconds"/>
 	</function>
+	<function name="Spawn">
+		<input name="xml" type="string" optional="false" desc="File name or xml string"/>
+		<input name="transform" type="table" optional="false" desc="Spawn transform"/>
+		<input name="allowStatic" type="boolean" optional="true" desc="Allow spawning static shapes and bodies (default false)"/>
+		<input name="jointExisting" type="boolean" optional="true" desc="Allow joints to connect to existing scene geometry (default false)"/>
+		<output name="entities" type="table" desc="Indexed table with handles to all spawned entities"/>
+	</function>
 	<function name="Shoot">
 		<input name="origin" type="Vector" optional="false" desc="Origin in world space as vector"/>
 		<input name="direction" type="Vector" optional="false" desc="Unit length direction as world space vector"/>
 		<input name="type" type="number" optional="true" desc="0 is regular bullet (default) and 1 is rocket"/>
+		<input name="strength" type="number" optional="true" desc="Strength scaling, default is 1.0"/>
+		<input name="maxDist" type="number" optional="true" desc="Maximum distance, default is 100.0"/>
+	</function>
+	<function name="Paint">
+		<input name="origin" type="table" optional="false" desc="Origin in world space as vector"/>
+		<input name="radius" type="number" optional="false" desc="Affected radius, in range 0.0 to 5.0"/>
+		<input name="type" type="string" optional="true" desc="Paint type. Can be 'explosion' or 'spraycan'. Default is spraycan."/>
+		<input name="probability" type="number" optional="true" desc="Dithering probability between zero and one, default is 1.0"/>
 	</function>
 	<function name="MakeHole">
 		<input name="position" type="Vector" optional="false" desc="Hole center point"/>
@@ -1051,6 +1078,7 @@
 		<input name="r1" type="number" optional="true" desc="Hole radius for medium materials. May not be bigger than r0. Default zero."/>
 		<input name="r2" type="number" optional="true" desc="Hole radius for hard materials. May not be bigger than r1. Default zero."/>
 		<input name="silent" type="boolean" optional="true" desc="Make hole without playing any break sounds."/>
+		<output name="count" type="number" desc="Number of voxels that was cut out. This will be zero if there were no changes to any shape."/>
 	</function>
 	<function name="Explosion">
 		<input name="pos" type="Vector" optional="false" desc="Position in world space as vector"/>
@@ -1355,8 +1383,6 @@
 	</function>
 	<function name="UiImageButton">
 		<input name="path" type="number" optional="false" desc="Image path (PNG or JPG file)"/>
-		<input name="w" type="number" optional="true" desc="Button width"/>
-		<input name="h" type="number" optional="true" desc="Button height"/>
 		<output name="pressed" type="boolean" desc="True if user clicked button"/>
 	</function>
 	<function name="UiBlankButton">
@@ -1372,6 +1398,10 @@
 		<input name="max" type="number" optional="false" desc="Maximum value"/>
 		<output name="value" type="number" desc="New value, same as current if not changed"/>
 		<output name="done" type="boolean" desc="True if user is finished changing (released slider)"/>
+	</function>
+	<function name="UiTextInput">
+		<input name="text" type="string" optional="false" desc="Current text"/>
+		<output name="test" type="string" desc="Potentially altered text"/>
 	</function>
 	<function name="UiGetScreen">
 		<output name="handle" type="number" desc="Handle to the screen running this script or zero if none."/>
