@@ -41,8 +41,19 @@ func (luaWriter LuaWriter) Write(api Api) (string, error) {
 
 	// we iterate through every function within our api
 	for i := 0; i < len(api.Functions); i++ {
-		stub += luaWriter.getFunctionStub(api.Functions[i])
-		stub += "\n"
+		var function Function = api.Functions[i]
+		var inputCount int = len(function.Inputs)
+
+		for i := inputCount; i >= 0; i++ {
+			stub += luaWriter.getFunctionStub(function)
+			stub += "\n"
+
+			if len(function.Inputs) == 0 {
+				break
+			}
+
+			function.Inputs = function.Inputs[:len(function.Inputs)-1]
+		}
 	}
 
 	return stub, nil
