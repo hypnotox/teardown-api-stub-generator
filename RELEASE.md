@@ -1,7 +1,7 @@
-# Teardown Lua API v0.9.5 Stubs
+# Teardown Lua API v1.0.0 Stubs
 
 ## Changes
-- Update to Teardown Lua API v0.9.5
+- Update to Teardown Lua API v1.0.0
 
 ## Usage
 - Download the file you need, then copy it into your mod folder.

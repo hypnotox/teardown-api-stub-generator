@@ -1322,8 +1322,12 @@
 	</function>
 	<function name="UiImage">
 		<input name="path" type="string" optional="false" desc="Path to image (PNG or JPG format)"/>
-		<output name="w" type="number" desc="Image width"/>
-		<output name="h" type="number" desc="Image height"/>
+		<input name="x0" type="number" optional="true" desc="Lower x coordinate (default is 0)"/>
+		<input name="y0" type="number" optional="true" desc="Lower y coordinate (default is 0)"/>
+		<input name="x1" type="number" optional="true" desc="Upper x coordinate (default is image width)"/>
+		<input name="y1" type="number" optional="true" desc="Upper y coordinate (default is image height)"/>
+		<output name="w" type="number" desc="Width of drawn image"/>
+		<output name="h" type="number" desc="Height of drawn image"/>
 	</function>
 	<function name="UiGetImageSize">
 		<input name="path" type="string" optional="false" desc="Path to image (PNG or JPG format)"/>
