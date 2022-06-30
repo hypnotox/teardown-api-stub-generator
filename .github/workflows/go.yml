@@ -28,8 +28,8 @@ jobs:
       with:
         draft: false
         prerelease: false
-        release_name: v1.0.0-${{ steps.date.outputs.date }}
-        tag_name: v1.0.0-${{ steps.date.outputs.date }}
+        release_name: v1.1.0-${{ steps.date.outputs.date }}
+        tag_name: v1.1.0-${{ steps.date.outputs.date }}
         body_path: RELEASE.md
       env:
         GITHUB_TOKEN: ${{ github.token }}
@@ -42,14 +42,4 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./teardown.d.lua
         asset_name: teardown.d.lua
-        asset_content_type: text/plain
-        
-    - name: upload Teal stub file
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./teardown.d.tl
-        asset_name: teardown.d.tl
         asset_content_type: text/plain

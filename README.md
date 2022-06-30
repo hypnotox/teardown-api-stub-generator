@@ -6,7 +6,7 @@ These files describe the available Lua API for mods.
 
 The file is currently being modified beforehand, since there are some types that don't exist in Lua and `Vector`, `Quaternion` as well as `Transform` are just described as `table`.
 
-The parser currently generates a stub file for [Lua](https://www.lua.org/) and [Teal, a typed dialect of Lua](https://github.com/teal-language/tl).
+The parser generates a stub file for [Lua](https://www.lua.org/).
 
 ## Usage
 
@@ -18,8 +18,6 @@ The parser currently generates a stub file for [Lua](https://www.lua.org/) and [
     - The IDE should pick up the functions by themselves.
     - If you install an extension with support for the annotations, types will be inferred as well.
     - Don't `#include` it!
-  - Teal
-    - Define `global_env_def = 'teardown'` in your `tlconfig.lua` file.
 
 #### If you want to, for some reason, run the generator yourself
 
@@ -33,7 +31,3 @@ Download the source and run `go run` in the directory to build the stubs from th
 These extensions extend type inference for Lua.
 - Visual Studio Code: https://marketplace.visualstudio.com/items?itemName=sumneko.lua
 - JetBrains IDEs: https://plugins.jetbrains.com/plugin/9768-emmylua
-
-### Teal
-This extension adds support for Teal to VS Code.
-- Visual Studio Code: https://marketplace.visualstudio.com/items?itemName=pdesaulniers.vscode-teal

@@ -1062,7 +1062,7 @@
 	<function name="Shoot">
 		<input name="origin" type="Vector" optional="false" desc="Origin in world space as vector"/>
 		<input name="direction" type="Vector" optional="false" desc="Unit length direction as world space vector"/>
-		<input name="type" type="number" optional="true" desc="0 is regular bullet (default) and 1 is rocket"/>
+		<input name="type" type="string" optional="true" desc="Shot type, see description, default is 'bullet'"/>
 		<input name="strength" type="number" optional="true" desc="Strength scaling, default is 1.0"/>
 		<input name="maxDist" type="number" optional="true" desc="Maximum distance, default is 100.0"/>
 	</function>
@@ -1236,6 +1236,7 @@
 		<input name="width" type="number" optional="false" desc="Window width"/>
 		<input name="height" type="number" optional="false" desc="Window height"/>
 		<input name="clip" type="boolean" optional="true" desc="Clip content outside window. Default is false."/>
+		<input name="inherit" type="boolean" optional="true" desc="Inherit current clip region (for nested clip regions)"/>
 	</function>
 	<function name="UiSafeMargins">
 		<output name="x0" type="number" desc="Left"/>
@@ -1402,10 +1403,6 @@
 		<input name="max" type="number" optional="false" desc="Maximum value"/>
 		<output name="value" type="number" desc="New value, same as current if not changed"/>
 		<output name="done" type="boolean" desc="True if user is finished changing (released slider)"/>
-	</function>
-	<function name="UiTextInput">
-		<input name="text" type="string" optional="false" desc="Current text"/>
-		<output name="test" type="string" desc="Potentially altered text"/>
 	</function>
 	<function name="UiGetScreen">
 		<output name="handle" type="number" desc="Handle to the screen running this script or zero if none."/>
