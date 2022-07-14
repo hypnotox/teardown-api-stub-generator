@@ -1,7 +1,7 @@
 # Teardown Lua API v1.1.0 Stubs
 
 ## Changes
-- Extend lua stubs with overloaded functions to prevent false positive missing arguments
+- fix wrong type annotation
 
 ## Usage
 - Download the file you need, then copy it into your mod folder.
