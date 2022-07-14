@@ -788,7 +788,7 @@
 		<input name="vel" type="Vector" optional="false" desc="Desired ground velocity"/>
 	</function>
 	<function name="GetPlayerCameraTransform">
-		<output name="transform" type="Vector" desc="Current player camera transform"/>
+		<output name="transform" type="Transform" desc="Current player camera transform"/>
 	</function>
 	<function name="SetPlayerSpawnTransform">
 		<input name="transform" type="Transform" optional="false" desc="Desired player spawn transform"/>
