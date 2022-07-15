@@ -105,8 +105,7 @@ func (luaWriter LuaWriter) getOutputStub(outputs []Output) string {
 		return ""
 	}
 
-	returnTypes := ""
-	returnDescriptions := ""
+	returns := ""
 
 	for i := 0; i < len(outputs); i++ {
 		output := outputs[i]
@@ -116,16 +115,10 @@ func (luaWriter LuaWriter) getOutputStub(outputs []Output) string {
 			output.Type = replacement
 		}
 
-		returnTypes += output.Type
-		returnDescriptions += fmt.Sprintf("%s: %s", output.Name, output.Description)
-
-		if i < (len(outputs) - 1) {
-			returnTypes += "|"
-			returnDescriptions += ", "
-		}
+		returns += fmt.Sprintf("---@return %s %s %s\n", output.Type, output.Name, output.Description)
 	}
 
-	return fmt.Sprintf("---@return %s %s\n", returnTypes, returnDescriptions)
+	return returns
 }
 
 func (luaWriter LuaWriter) getStubHeader() string {
