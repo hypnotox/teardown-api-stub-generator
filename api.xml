@@ -1,22 +1,22 @@
 <api>
 	<function name="GetIntParam">
 		<input name="name" type="string" optional="false" desc="Parameter name"/>
-		<input name="default" type="number" optional="false" desc="Default parameter value"/>
+		<input name="default" type="number" optional="true" desc="Default parameter value"/>
 		<output name="value" type="number" desc="Parameter value"/>
 	</function>
 	<function name="GetFloatParam">
 		<input name="name" type="string" optional="false" desc="Parameter name"/>
-		<input name="default" type="number" optional="false" desc="Default parameter value"/>
+		<input name="default" type="number" optional="true" desc="Default parameter value"/>
 		<output name="value" type="number" desc="Parameter value"/>
 	</function>
 	<function name="GetBoolParam">
 		<input name="name" type="string" optional="false" desc="Parameter name"/>
-		<input name="default" type="boolean" optional="false" desc="Default parameter value"/>
+		<input name="default" type="boolean" optional="true" desc="Default parameter value"/>
 		<output name="value" type="boolean" desc="Parameter value"/>
 	</function>
 	<function name="GetStringParam">
 		<input name="name" type="string" optional="false" desc="Parameter name"/>
-		<input name="default" type="string" optional="false" desc="Default parameter value"/>
+		<input name="default" type="string" optional="true" desc="Default parameter value"/>
 		<output name="value" type="string" desc="Parameter value"/>
 	</function>
 	<function name="GetVersion">
@@ -393,10 +393,10 @@
 	</function>
 	<function name="DrawBodyOutline">
 		<input name="handle" type="integer" optional="false" desc="Body handle"/>
-		<input name="r" type="number" optional="true" desc="Red"/>
-		<input name="g" type="number" optional="true" desc="Green"/>
+		<input name="r" type="number" optional="false" desc="Red"/>
+		<input name="g" type="number" optional="false" desc="Green"/>
 		<input name="b" type="number" optional="true" desc="Blue"/>
-		<input name="a" type="number" optional="false" desc="Alpha"/>
+		<input name="a" type="number" optional="true" desc="Alpha"/>
 	</function>
 	<function name="DrawBodyHighlight">
 		<input name="handle" type="integer" optional="false" desc="Body handle"/>
@@ -785,12 +785,12 @@
 		<output name="position" type="Vector" desc="Player center position"/>
 	</function>
 	<function name="GetPlayerTransform">
-		<input name="includePitch" type="boolean" optional="false" desc="Include the player pitch (look up/down) in transform"/>
+		<input name="includePitch" type="boolean" optional="true" desc="Include the player pitch (look up/down) in transform"/>
 		<output name="transform" type="Transform" desc="Current player transform"/>
 	</function>
 	<function name="SetPlayerTransform">
 		<input name="transform" type="Transform" optional="false" desc="Desired player transform"/>
-		<input name="includePitch" type="boolean" optional="false" desc="Set player pitch (look up/down) as well"/>
+		<input name="includePitch" type="boolean" optional="true" desc="Set player pitch (look up/down) as well"/>
 	</function>
 	<function name="SetPlayerGroundVelocity">
 		<input name="vel" type="Vector" optional="false" desc="Desired ground velocity"/>
