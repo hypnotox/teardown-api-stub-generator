@@ -1,8 +1,7 @@
 # Teardown Lua API v1.1.0 Stubs
 
 ## Changes
-- correct function overloading
-- improve types of handles `number` -> `integer`
+- fix some false non-optional parameters
 
 ## Usage
 - Download the file you need, then copy it into your mod folder.
