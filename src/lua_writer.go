@@ -41,14 +41,14 @@ func (luaWriter LuaWriter) Write(api Api) (string, error) {
 
 	// we iterate through every function within our api
 	for i := 0; i < len(api.Functions); i++ {
-		var function Function = api.Functions[i]
-		var inputCount int = len(function.Inputs)
+		var function = api.Functions[i]
+		var inputCount = len(function.Inputs)
 
 		for i := inputCount; i >= 0; i++ {
 			stub += luaWriter.getFunctionStub(function)
 			stub += "\n"
 
-			if len(function.Inputs) == 0 {
+			if len(function.Inputs) == 0 || function.Inputs[len(function.Inputs)-1].Optional == false {
 				break
 			}
 
