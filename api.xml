@@ -921,7 +921,7 @@
 		<input name="rejectTransparent" type="boolean" optional="true" desc="Raycast through transparent materials. Default false."/>
 		<output name="hit" type="boolean" desc="True if raycast hit something"/>
 		<output name="dist" type="number" desc="Hit distance from origin"/>
-		<output name="normal" type="table" desc="World space normal at hit point"/>
+		<output name="normal" type="Vector" desc="World space normal at hit point"/>
 		<output name="shape" type="integer" desc="Handle to hit shape"/>
 	</function>
 	<function name="QueryClosestPoint">
@@ -1062,7 +1062,7 @@
 	</function>
 	<function name="Spawn">
 		<input name="xml" type="string" optional="false" desc="File name or xml string"/>
-		<input name="transform" type="table" optional="false" desc="Spawn transform"/>
+		<input name="transform" type="Transform" optional="false" desc="Spawn transform"/>
 		<input name="allowStatic" type="boolean" optional="true" desc="Allow spawning static shapes and bodies (default false)"/>
 		<input name="jointExisting" type="boolean" optional="true" desc="Allow joints to connect to existing scene geometry (default false)"/>
 		<output name="entities" type="table&lt;integer&gt;" desc="Indexed table with handles to all spawned entities"/>
@@ -1075,7 +1075,7 @@
 		<input name="maxDist" type="number" optional="true" desc="Maximum distance, default is 100.0"/>
 	</function>
 	<function name="Paint">
-		<input name="origin" type="table" optional="false" desc="Origin in world space as vector"/>
+		<input name="origin" type="Vector" optional="false" desc="Origin in world space as vector"/>
 		<input name="radius" type="number" optional="false" desc="Affected radius, in range 0.0 to 5.0"/>
 		<input name="type" type="string" optional="true" desc="Paint type. Can be 'explosion' or 'spraycan'. Default is spraycan."/>
 		<input name="probability" type="number" optional="true" desc="Dithering probability between zero and one, default is 1.0"/>
