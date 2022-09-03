@@ -20,8 +20,6 @@ func NewLuaWriter() *LuaWriter {
 	return &LuaWriter{
 		overrideVariableType: map[string]string{
 			"number<integer>": "number",
-			"table<number>":   "table",
-			"table<string>":   "table",
 			"Vector":          vectorTypeName,
 			"Quaternion":      quaternionTypeName,
 			"Transform":       transformTypeName,
@@ -42,18 +40,8 @@ func (luaWriter LuaWriter) Write(api Api) (string, error) {
 	// we iterate through every function within our api
 	for i := 0; i < len(api.Functions); i++ {
 		var function = api.Functions[i]
-		var inputCount = len(function.Inputs)
-
-		for i := inputCount; i >= 0; i++ {
-			stub += luaWriter.getFunctionStub(function)
-			stub += "\n"
-
-			if len(function.Inputs) == 0 || function.Inputs[len(function.Inputs)-1].Optional == false {
-				break
-			}
-
-			function.Inputs = function.Inputs[:len(function.Inputs)-1]
-		}
+		stub += luaWriter.getFunctionStub(function)
+		stub += "\n"
 	}
 
 	return stub, nil
@@ -91,10 +79,10 @@ func (luaWriter LuaWriter) getInputStub(inputs []Input) string {
 		}
 
 		if input.Optional {
-			inputStub += fmt.Sprintf("---@param %s %s %s %s\n", input.Name, input.Type, "_optional_", input.Description)
-		} else {
-			inputStub += fmt.Sprintf("---@param %s %s %s\n", input.Name, input.Type, input.Description)
+			input.Type += "|nil"
 		}
+
+		inputStub += fmt.Sprintf("---@param %s %s %s\n", input.Name, input.Type, input.Description)
 	}
 
 	return inputStub
