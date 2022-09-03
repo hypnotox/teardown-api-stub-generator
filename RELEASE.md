@@ -1,7 +1,8 @@
 # Teardown Lua API v1.1.0 Stubs
 
 ## Changes
-- fix some false non-optional parameters
+- add some missing table types
+- correctly implement function overload
 
 ## Usage
 - Download the file you need, then copy it into your mod folder.
