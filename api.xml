@@ -390,17 +390,14 @@
 	</function>
 	<function name="DrawBodyOutline">
 		<input name="handle" type="integer" optional="false" desc="Body handle"/>
-		<input name="r" type="number" optional="true" desc="Red"/>
-		<input name="g" type="number" optional="true" desc="Green"/>
-		<input name="b" type="number" optional="true" desc="Blue"/>
 		<input name="a" type="number" optional="false" desc="Alpha"/>
 	</function>
 	<function name="DrawBodyOutline">
 		<input name="handle" type="integer" optional="false" desc="Body handle"/>
-		<input name="r" type="number" optional="false" desc="Red"/>
-		<input name="g" type="number" optional="false" desc="Green"/>
+		<input name="r" type="number" optional="true" desc="Red"/>
+		<input name="g" type="number" optional="true" desc="Green"/>
 		<input name="b" type="number" optional="true" desc="Blue"/>
-		<input name="a" type="number" optional="true" desc="Alpha"/>
+		<input name="a" type="number" optional="false" desc="Alpha"/>
 	</function>
 	<function name="DrawBodyHighlight">
 		<input name="handle" type="integer" optional="false" desc="Body handle"/>
