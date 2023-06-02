@@ -1,22 +1,22 @@
 <api>
 	<function name="GetIntParam">
 		<input name="name" type="string" optional="false" desc="Parameter name"/>
-		<input name="default" type="number" optional="true" desc="Default parameter value"/>
+		<input name="default" type="number" optional="false" desc="Default parameter value"/>
 		<output name="value" type="number" desc="Parameter value"/>
 	</function>
 	<function name="GetFloatParam">
 		<input name="name" type="string" optional="false" desc="Parameter name"/>
-		<input name="default" type="number" optional="true" desc="Default parameter value"/>
+		<input name="default" type="number" optional="false" desc="Default parameter value"/>
 		<output name="value" type="number" desc="Parameter value"/>
 	</function>
 	<function name="GetBoolParam">
 		<input name="name" type="string" optional="false" desc="Parameter name"/>
-		<input name="default" type="boolean" optional="true" desc="Default parameter value"/>
+		<input name="default" type="boolean" optional="false" desc="Default parameter value"/>
 		<output name="value" type="boolean" desc="Parameter value"/>
 	</function>
 	<function name="GetStringParam">
 		<input name="name" type="string" optional="false" desc="Parameter name"/>
-		<input name="default" type="string" optional="true" desc="Default parameter value"/>
+		<input name="default" type="string" optional="false" desc="Default parameter value"/>
 		<output name="value" type="string" desc="Parameter value"/>
 	</function>
 	<function name="GetVersion">
@@ -59,6 +59,7 @@
 	</function>
 	<function name="PauseMenuButton">
 		<input name="title" type="string" optional="false" desc="Text on button"/>
+		<input name="primary" type="bool" optional="true" desc="Primary button"/>
 		<output name="clicked" type="boolean" desc="True if clicked, false otherwise"/>
 	</function>
 	<function name="StartLevel">
@@ -389,6 +390,9 @@
 	</function>
 	<function name="DrawBodyOutline">
 		<input name="handle" type="integer" optional="false" desc="Body handle"/>
+		<input name="r" type="number" optional="true" desc="Red"/>
+		<input name="g" type="number" optional="true" desc="Green"/>
+		<input name="b" type="number" optional="true" desc="Blue"/>
 		<input name="a" type="number" optional="false" desc="Alpha"/>
 	</function>
 	<function name="DrawBodyOutline">
@@ -599,8 +603,12 @@
 		<input name="shape" type="number" optional="false" desc="Shape handle"/>
 		<output name="other" type="number" desc="Other shape handle"/>
 	</function>
-	<function name="SetJointMotor">
+	<function name="GetJointShapes">
 		<input name="joint" type="integer" optional="false" desc="Joint handle"/>
+		<output name="shapes" type="number" desc="Shape handles"/>
+	</function>
+	<function name="SetJointMotor">
+		<input name="joint" type="number" optional="false" desc="Joint handle"/>
 		<input name="velocity" type="number" optional="false" desc="Desired velocity"/>
 		<input name="strength" type="number" optional="true" desc="Desired strength. Default is infinite. Zero to disable."/>
 	</function>
@@ -798,6 +806,9 @@
 	<function name="GetPlayerCameraTransform">
 		<output name="transform" type="Transform" desc="Current player camera transform"/>
 	</function>
+	<function name="SetPlayerCameraOffsetTransform">
+		<input name="transform" type="Transform" optional="false" desc="Desired player camera offset transform" />
+	</function>
 	<function name="SetPlayerSpawnTransform">
 		<input name="transform" type="Transform" optional="false" desc="Desired player spawn transform"/>
 	</function>
@@ -979,7 +990,7 @@
 		<input name="type" type="string" optional="false" desc="Type of particle. Can be 'smoke' or 'plain'."/>
 	</function>
 	<function name="ParticleTile">
-		<input name="type" type="number&lt;integer&gt;" optional="false" desc="Tile in the particle texture atlas (0-15)"/>
+		<input name="type" type="integer" optional="false" desc="Tile in the particle texture atlas (0-15)"/>
 	</function>
 	<function name="ParticleColor">
 		<input name="r0" type="number" optional="false" desc="Red value"/>
@@ -1115,10 +1126,10 @@
 		<output name="count" type="number" desc="Number of fires removed"/>
 	</function>
 	<function name="GetCameraTransform">
-		<output name="transform" type="Transform" desc="Current camera transform"/>
+		<output name="transform" type="table" desc="Current camera transform"/>
 	</function>
 	<function name="SetCameraTransform">
-		<input name="transform" type="Transform" optional="false" desc="Desired camera transform"/>
+		<input name="transform" type="table" optional="false" desc="Desired camera transform"/>
 		<input name="fov" type="number" optional="true" desc="Optional horizontal field of view in degrees (default: 90)"/>
 	</function>
 	<function name="SetCameraFov">
@@ -1129,7 +1140,7 @@
 		<input name="amount" type="number" optional="true" desc="Optional amount of blur (default 1.0)"/>
 	</function>
 	<function name="PointLight">
-		<input name="pos" type="Vector" optional="false" desc="World space light position"/>
+		<input name="pos" type="table" optional="false" desc="World space light position"/>
 		<input name="r" type="number" optional="false" desc="Red"/>
 		<input name="g" type="number" optional="false" desc="Green"/>
 		<input name="b" type="number" optional="false" desc="Blue"/>
